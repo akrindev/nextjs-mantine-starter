@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { UnstyledButton, Tooltip, Title, rem } from "@mantine/core";
+import {
+  UnstyledButton,
+  Tooltip,
+  Title,
+  rem,
+  Stack,
+  Burger,
+} from "@mantine/core";
 import {
   IconHome2,
   IconGauge,
@@ -10,6 +17,7 @@ import {
   IconCalendarStats,
   IconUser,
   IconSettings,
+  IconChevronCompactLeft,
 } from "@tabler/icons-react";
 import classes from "./Sidebar.module.css";
 
@@ -37,7 +45,13 @@ const linksMockdata = [
   "Wiki pages",
 ];
 
-export function Sidebar() {
+export function Sidebar({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const [active, setActive] = useState("Releases");
   const [activeLink, setActiveLink] = useState("Settings");
 
@@ -76,7 +90,36 @@ export function Sidebar() {
       <div className={classes.wrapper}>
         <div className={classes.aside}>
           <div className={classes.logo}></div>
-          {mainLinks}
+
+          <div
+            style={{
+              // flex-1
+              flexGrow: 1,
+            }}>
+            {mainLinks}
+          </div>
+
+          {/* it will be on the bottom to close navbar */}
+          <Stack
+            justify='center'
+            gap={0}
+            style={{
+              paddingBottom: rem(20),
+            }}>
+            <Tooltip
+              label={"close"}
+              position='right'
+              withArrow
+              transitionProps={{ duration: 0 }}
+              key={"close"}>
+              <Burger
+                opened={isOpen}
+                onClick={onClose}
+                hiddenFrom='sm'
+                size='sm'
+              />
+            </Tooltip>
+          </Stack>
         </div>
         <div className={classes.main}>
           <Title order={4} className={classes.title}>

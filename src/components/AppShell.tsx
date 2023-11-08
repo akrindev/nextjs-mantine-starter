@@ -29,7 +29,7 @@ export default function AppShellLayout({
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <Sidebar />
+        <Sidebar isOpen={opened} onClose={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Main>
