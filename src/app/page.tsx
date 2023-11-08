@@ -1,5 +1,9 @@
-import { Button } from "@mantine/core";
+"use client";
+
+import { AuthenticationImage } from "@/components/auth/authentication";
+import { Button, Container } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 
 export default function Page() {
-  return <Button>Hello</Button>;
+  return <AuthenticationImage />;
 }
