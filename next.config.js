@@ -9,7 +9,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
-    webpackBuildWorker: true,
+    // webpackBuildWorker: true,
   },
 };
 
