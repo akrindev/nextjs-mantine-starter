@@ -9,8 +9,21 @@ import {
   Anchor,
 } from "@mantine/core";
 import classes from "./authentication.module.css";
+import { signIn } from "@/auth";
+import React, { useState } from "react";
 
 export function AuthenticationImage() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await signIn("credentials", {
+      email,
+      password,
+    });
+  };
+
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={36}>
@@ -18,21 +31,28 @@ export function AuthenticationImage() {
           Authenticate to your account
         </Title>
 
-        <TextInput
-          label='Email address'
-          placeholder='hello@gmail.com'
-          size='md'
-        />
-        <PasswordInput
-          label='Password'
-          placeholder='Your password'
-          mt='md'
-          size='md'
-        />
-        <Checkbox label='Keep me logged in' mt='xl' size='md' />
-        <Button fullWidth mt='xl' size='md'>
-          Login
-        </Button>
+        <form onSubmit={handleSignIn}>
+          <TextInput
+            label='Email address'
+            placeholder='hello@gmail.com'
+            size='md'
+            value={email}
+            onInput={(event) => setEmail(event.currentTarget.value)}
+            required
+          />
+          <PasswordInput
+            label='Password'
+            placeholder='Your password'
+            mt='md'
+            size='md'
+            value={password}
+            onInput={(event) => setPassword(event.currentTarget.value)}
+          />
+          <Checkbox label='Keep me logged in' mt='xl' size='md' />
+          <Button fullWidth mt='xl' size='md' type='submit'>
+            Login
+          </Button>
+        </form>
 
         <Text ta='center' mt='md'>
           Don&apos;t have an account?{" "}

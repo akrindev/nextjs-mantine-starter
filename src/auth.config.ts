@@ -1,5 +1,6 @@
 import type { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { supabase } from "./lib/supabase";
 
 export const authConfig = {
   providers: [
@@ -13,21 +14,24 @@ export const authConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const authResponse = await fetch("/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
         });
 
-        if (!authResponse.ok) {
-          return null;
+        console.log("authorize supabase");
+        console.log(data, error);
+
+        if (error) {
+          throw new Error(error.message);
         }
 
-        const user = await authResponse.json();
-
-        return user;
+        return data.user;
       },
     }),
   ],
