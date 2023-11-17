@@ -8,7 +8,7 @@ import {
   Text,
   Anchor,
 } from "@mantine/core";
-import classes from "./authentication.module.css";
+import classes from "../../app/signin/authentication.module.css";
 import { signIn } from "@/auth";
 import React, { useState } from "react";
 
@@ -21,6 +21,7 @@ export function AuthenticationImage() {
     await signIn("credentials", {
       email,
       password,
+      redirect: false,
     });
   };
 

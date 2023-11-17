@@ -1,6 +1,6 @@
 import type { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { supabase } from "./lib/supabase";
+import { supabase } from "./lib/supabase/supabase";
 
 export const authConfig = {
   providers: [
@@ -35,7 +35,27 @@ export const authConfig = {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      return url;
+    },
+    async session({ session, user, token }) {
+      return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token;
+    },
+    async authorized({ request, auth }) {
+      const { pathname } = request.nextUrl;
+      if (pathname === "/login") return !!auth;
+      return true;
+    },
+  },
   pages: {
     signIn: "/login",
+    error: "/login",
   },
 } satisfies NextAuthConfig;

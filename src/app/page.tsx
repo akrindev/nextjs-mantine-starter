@@ -3,5 +3,5 @@
 import { AuthenticationImage } from "@/components/auth/authentication";
 
 export default function Page() {
-  return <AuthenticationImage />;
+  return <div>hi</div>;
 }
