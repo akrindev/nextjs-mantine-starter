@@ -8,6 +8,7 @@ import { theme } from "../../theme";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { NextAuthProvider } from "./next-auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <MantineProvider theme={theme}>
           <Notifications />
-          {children}
+          <NextAuthProvider>{children}</NextAuthProvider>
         </MantineProvider>
       </body>
     </html>

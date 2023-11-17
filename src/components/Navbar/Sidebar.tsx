@@ -18,8 +18,10 @@ import {
   IconUser,
   IconSettings,
   IconChevronCompactLeft,
+  IconLogout,
 } from "@tabler/icons-react";
 import classes from "./Sidebar.module.css";
+import { signOut } from "next-auth/react";
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: "Home" },
@@ -58,14 +60,16 @@ export function Sidebar({
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
       label={link.label}
-      position='right'
+      position="right"
       withArrow
       transitionProps={{ duration: 0 }}
-      key={link.label}>
+      key={link.label}
+    >
       <UnstyledButton
         onClick={() => setActive(link.label)}
         className={classes.mainLink}
-        data-active={link.label === active || undefined}>
+        data-active={link.label === active || undefined}
+      >
         <link.icon style={{ width: rem(22), height: rem(22) }} stroke={1.5} />
       </UnstyledButton>
     </Tooltip>
@@ -75,12 +79,13 @@ export function Sidebar({
     <a
       className={classes.link}
       data-active={activeLink === link || undefined}
-      href='#'
+      href="#"
       onClick={(event) => {
         event.preventDefault();
         setActiveLink(link);
       }}
-      key={link}>
+      key={link}
+    >
       {link}
     </a>
   ));
@@ -95,28 +100,51 @@ export function Sidebar({
             style={{
               // flex-1
               flexGrow: 1,
-            }}>
+            }}
+          >
             {mainLinks}
           </div>
 
-          {/* it will be on the bottom to close navbar */}
           <Stack
-            justify='center'
+            justify="center"
             gap={0}
             style={{
               paddingBottom: rem(20),
-            }}>
+            }}
+          >
             <Tooltip
-              label={"close"}
-              position='right'
+              label={"logout"}
+              position="right"
               withArrow
               transitionProps={{ duration: 0 }}
-              key={"close"}>
+              key={"logout"}
+            >
+              <UnstyledButton
+                onClick={() =>
+                  signOut({
+                    redirect: true,
+                    callbackUrl: "/login",
+                  })
+                }
+                className={classes.mainLink}
+                data-active={undefined}
+              >
+                <IconLogout />
+              </UnstyledButton>
+            </Tooltip>
+            {/* it will be on the bottom to close navbar */}
+            <Tooltip
+              label={"close"}
+              position="right"
+              withArrow
+              transitionProps={{ duration: 0 }}
+              key={"close"}
+            >
               <Burger
                 opened={isOpen}
                 onClick={onClose}
-                hiddenFrom='sm'
-                size='sm'
+                hiddenFrom="sm"
+                size="sm"
               />
             </Tooltip>
           </Stack>
