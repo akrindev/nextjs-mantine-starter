@@ -113,26 +113,24 @@ export function Sidebar({
             }}
           >
             <Tooltip
-              label={"close"}
+              label={"logout"}
               position="right"
               withArrow
               transitionProps={{ duration: 0 }}
-              key={"close"}
+              key={"logout"}
             >
-              <a
-                className={classes.link}
-                data-active={undefined}
-                href="#"
+              <UnstyledButton
                 onClick={() =>
                   signOut({
                     redirect: true,
                     callbackUrl: "/login",
                   })
                 }
-                key={"signout"}
+                className={classes.mainLink}
+                data-active={undefined}
               >
                 <IconLogout />
-              </a>
+              </UnstyledButton>
             </Tooltip>
             {/* it will be on the bottom to close navbar */}
             <Tooltip
