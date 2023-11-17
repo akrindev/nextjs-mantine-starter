@@ -1,7 +1,5 @@
 "use client";
 
-import { AuthenticationImage } from "@/components/auth/authentication";
-
 export default function Page() {
-  return <div>hi</div>;
+  return <div>Next.js + mantine + supabase + next-auth</div>;
 }
